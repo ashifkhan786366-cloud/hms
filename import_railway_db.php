@@ -3,26 +3,43 @@ require_once __DIR__ . '/config/db.php';
 
 echo "<h1>HMS Database Importer</h1>";
 
-// Security check (basic)
 if (isset($_GET['run']) && $_GET['run'] == 'yes') {
     $sql_file = __DIR__ . '/hms_schema.sql';
     
     if (file_exists($sql_file)) {
         $sql = file_get_contents($sql_file);
         
-        try {
-            // execute the entire schema
-            $pdo->exec($sql);
-            echo "<h3 style='color:green;'>✅ Database Schema Imported Successfully!</h3>";
-            echo "<p>You can now login with username <b>admin</b> and password <b>password</b></p>";
-            echo "<p><a href='index.php'>Go to Login</a></p>";
-            
-            // Delete this file after successful run for security
-            @unlink(__FILE__);
-        } catch (PDOException $e) {
-            echo "<h3 style='color:red;'>❌ Error executing SQL</h3>";
-            echo "<pre>" . htmlspecialchars($e->getMessage()) . "</pre>";
+        // Remove comments
+        $sql = preg_replace('/--.*$/m', '', $sql);
+        $sql = preg_replace('/^\s*$/m', '', $sql);
+        
+        // Split by semicolon
+        $statements = explode(';', $sql);
+        
+        $successCount = 0;
+        $errorCount = 0;
+        
+        foreach ($statements as $statement) {
+            $statement = trim($statement);
+            if (!empty($statement)) {
+                try {
+                    $pdo->exec($statement);
+                    $successCount++;
+                } catch (PDOException $e) {
+                    echo "<p style='color:red;'>Error in statement: " . htmlspecialchars($statement) . "<br>Error: " . $e->getMessage() . "</p>";
+                    $errorCount++;
+                }
+            }
         }
+        
+        if ($errorCount == 0) {
+            echo "<h3 style='color:green;'>✅ Database Schema Imported Successfully! ($successCount queries executed)</h3>";
+            echo "<p>You can now login with username <b>admin</b> and password <b>password</b></p>";
+            echo "<p><a href='login.php'>Go to Login</a></p>";
+        } else {
+            echo "<h3 style='color:orange;'>⚠️ Import finished with $errorCount errors. ($successCount queries succeeded)</h3>";
+        }
+        
     } else {
         echo "<h3 style='color:red;'>❌ hms_schema.sql file not found!</h3>";
     }
