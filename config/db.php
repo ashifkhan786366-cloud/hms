@@ -26,11 +26,20 @@ if (file_exists($env_file)) {
 }
 
 // Database credentials from environment variables
-define('DB_HOST', getenv('DB_HOST') ?: (getenv('MYSQLHOST') ?: '127.0.0.1'));
-define('DB_USER', getenv('DB_USER') ?: (getenv('MYSQLUSER') ?: 'root'));
-define('DB_PASS', getenv('DB_PASS') ?: (getenv('MYSQLPASSWORD') ?: ''));
-define('DB_NAME', getenv('DB_NAME') ?: (getenv('MYSQLDATABASE') ?: 'hms_db'));
-define('DB_PORT', getenv('DB_PORT') ?: (getenv('MYSQLPORT') ?: '3306'));
+if (getenv('MYSQL_URL')) {
+    $url = parse_url(getenv('MYSQL_URL'));
+    define('DB_HOST', $url['host']);
+    define('DB_USER', $url['user']);
+    define('DB_PASS', $url['pass']);
+    define('DB_NAME', ltrim($url['path'], '/'));
+    define('DB_PORT', isset($url['port']) ? $url['port'] : '3306');
+} else {
+    define('DB_HOST', getenv('DB_HOST') ?: (getenv('MYSQLHOST') ?: '127.0.0.1'));
+    define('DB_USER', getenv('DB_USER') ?: (getenv('MYSQLUSER') ?: 'root'));
+    define('DB_PASS', getenv('DB_PASS') ?: (getenv('MYSQLPASSWORD') ?: ''));
+    define('DB_NAME', getenv('DB_NAME') ?: (getenv('MYSQLDATABASE') ?: 'hms_db'));
+    define('DB_PORT', getenv('DB_PORT') ?: (getenv('MYSQLPORT') ?: '3306'));
+}
 
 try {
     $dsn = "mysql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME . ";charset=utf8mb4";
