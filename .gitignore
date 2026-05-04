@@ -3,7 +3,7 @@
 # =============================================
 
 # --- Sensitive Config (NEVER commit) ---
-config/db.php
+# config/db.php (Removed because it now uses environment variables)
 
 # --- Large Files ---
 tcpdf.zip
