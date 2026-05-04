@@ -55,8 +55,8 @@ db_migrate.php
 db_enhancements.php
 daily_report_migrate.php
 migrate_step1.php
-migrate_settings.php
-setup_db.php
+# migrate_settings.php
+# setup_db.php
 setup_print.php
 update_db_schema.php
 upgrade_audit_log_schema.php
