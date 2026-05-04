@@ -78,6 +78,14 @@ try {
     // Failsafe defaults if table doesn't exist yet
     if (!defined('APP_NAME'))
         define('APP_NAME', 'SANKHLA HOSPITAL');
+    if (!defined('APP_SHORT_NAME'))
+        define('APP_SHORT_NAME', 'SANKHLA');
+    if (!defined('APP_ADDRESS'))
+        define('APP_ADDRESS', 'GOVT. DISS.NEAR KANJI PETROL PUMP,NEWARU ROAD,JHOTWARA,JAIPUR');
+    if (!defined('APP_PHONE'))
+        define('APP_PHONE', '9829208462');
+    if (!defined('APP_EMAIL'))
+        define('APP_EMAIL', 'bksankhlahospital@gmail.com');
     if (!defined('APP_LOGO'))
         define('APP_LOGO', 'assets/logo.png');
     if (!defined('PRIMARY_COLOR'))
