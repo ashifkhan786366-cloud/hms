@@ -1,0 +1,63 @@
+# =============================================
+#   HMS - Git Ignore File
+# =============================================
+
+# --- Sensitive Config (NEVER commit) ---
+config/db.php
+
+# --- Large Files ---
+tcpdf.zip
+*.zip
+*.tar.gz
+
+# --- Uploaded Patient Data (Privacy) ---
+uploads/*
+assets/uploads/*
+!uploads/.gitkeep
+!assets/uploads/.gitkeep
+
+# --- Logs ---
+*.log
+system_verification.log
+
+# --- OS / Editor Files ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- PHP Temp / Cache ---
+*.cache
+.php_cs.cache
+
+# --- Environment Files ---
+.env
+.env.local
+.env.production
+
+# --- Debug/Test Files (optional to exclude) ---
+phpinfo_test.php
+checkdb.php
+diag.php
+verify_db.php
+final_check.php
+test_all.php
+test_inserts.php
+check_users.php
+alter_db.php
+fix_columns.php
+execute_sql.php
+
+# --- Migration scripts (one-time use) ---
+db_migrate.php
+db_enhancements.php
+daily_report_migrate.php
+migrate_step1.php
+migrate_settings.php
+setup_db.php
+setup_print.php
+update_db_schema.php
+upgrade_audit_log_schema.php
+download_tcpdf.php
