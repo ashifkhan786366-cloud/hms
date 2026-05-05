@@ -4,7 +4,7 @@ nixPkgs = [
   "php82Extensions.pdo_mysql","php82Extensions.mysqli",
   "php82Extensions.gd","php82Extensions.mbstring",
   "php82Extensions.curl","php82Extensions.zip",
-  "php82Extensions.openssl","php82Extensions.json"
+  "php82Extensions.openssl"
 ]
 [start]
 cmd = "php -S 0.0.0.0:$PORT -t /app"
