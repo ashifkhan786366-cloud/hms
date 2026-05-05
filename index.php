@@ -1,4 +1,8 @@
 <?php
+if(!file_exists('.migrated')) {
+    include 'migrate.php';
+    file_put_contents('.migrated', date('Y-m-d H:i:s'));
+}
 require_once 'includes/auth_check.php';
 require_once 'includes/header.php';
 
