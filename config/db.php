@@ -42,6 +42,12 @@ try {
 } catch(Exception $e) {
     error_log("DB Error: " . $e->getMessage());
     http_response_code(500);
-    die(json_encode(['error' => 'Database connection failed']));
+    die(json_encode([
+        'error' => 'Database connection failed',
+        'details' => $e->getMessage(),
+        'host' => $db_host,
+        'user' => $db_user,
+        'db' => $db_name
+    ]));
 }
 ?>
