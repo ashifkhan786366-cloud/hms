@@ -6,5 +6,3 @@ nixPkgs = [
   "php82Extensions.curl","php82Extensions.zip",
   "php82Extensions.openssl"
 ]
-[start]
-cmd = "php -S 0.0.0.0:$PORT -t /app"
